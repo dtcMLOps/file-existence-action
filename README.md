@@ -11,10 +11,18 @@ This is a GitHub Action to check for existence of file types which you don't wan
 The following example [workflow step](https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow) will check for existence of the files: `package.json`, `LICENSE`, `README.md`, `foo` `bar`
 
 ```yml
-- name: "Check file existence"
-  uses: department-for-transport/file-existence-action@v2
-  with:
-    files: "xlsx, csv"
+- name: Check file existence
+        id: check_files
+        uses: department-for-transport/file-existence-action@v5
+        with:
+          files: "*xlsx, *csv"
+
+      - name: File exists
+        if: steps.check_files.outputs.files_exists == 'true'
+        # Only runs if any of the file types exist
+        run: |
+          echo "Error: following file types found ${{ steps.check_files.outputs.missing_files }}"
+          exit 1
 ```
 
 ## Outputs
