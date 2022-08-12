@@ -4,9 +4,9 @@ import glob from 'glob'
 export async function checkExistence(pattern: string): Promise<boolean> {
   const globOptions = {
     follow: !(
-      (core.getInput('follow_symlinks') || 'true').toUpperCase() === 'FALSE'
+      (core.getInput('follow_symlinks') || 'false').toUpperCase() === 'FALSE'
     ),
-    nocase: (core.getInput('ignore_case') || 'false').toUpperCase() === 'TRUE'
+    nocase: (core.getInput('ignore_case') || 'true').toUpperCase() === 'TRUE'
   }
   return new Promise((resolve, reject) => {
     glob(pattern, globOptions, (err: unknown, files: string[]) => {
