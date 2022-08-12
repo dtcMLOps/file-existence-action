@@ -86,7 +86,7 @@ function run() {
                 core.setOutput('files_exists', 'true');
             }
             else {
-                core.info('🎉 All files exist');
+                core.info('🎉 No files exist');
                 core.setOutput('files_exists', 'false');
             }
         }
