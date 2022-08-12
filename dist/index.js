@@ -79,9 +79,11 @@ function run() {
             if (missingFiles.length > 0) {
                 if (failure) {
                     core.setFailed(`Unexpected file types in your repo: ${missingFiles.join(', ')}`);
+                    core.setOutput('missing_files', `${missingFiles.join(', ')}`); 
                 }
                 else {
                     core.info(`Unexpected file types in your repo: ${missingFiles.join(', ')}`);
+                    core.setOutput('missing_files', `${missingFiles.join(', ')}`); 
                 }
                 core.setOutput('files_exists', 'true');
             }
