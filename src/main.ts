@@ -23,7 +23,7 @@ async function run(): Promise<void> {
   try {
     const files: string = core.getInput('files', {required: true})
     const failure: boolean =
-      (core.getInput('allow_failure') || 'false').toUpperCase() === 'TRUE'
+      (core.getInput('allow_failure') || 'true').toUpperCase() === 'TRUE'
     const fileList: string[] = files
       .split(',')
       .map((item: string) => item.trim())
@@ -33,7 +33,7 @@ async function run(): Promise<void> {
     await Promise.all(
       fileList.map(async (file: string) => {
         const isPresent = await checkExistence(file)
-        if (!isPresent) {
+        if (isPresent) {
           missingFiles.push(file)
         }
       })
@@ -41,13 +41,13 @@ async function run(): Promise<void> {
 
     if (missingFiles.length > 0) {
       if (failure) {
-        core.setFailed(`These files don't exist: ${missingFiles.join(', ')}`)
+        core.setFailed(`The following files have been found in the repo: ${missingFiles.join(', ')}`)
       } else {
-        core.info(`These files don't exist: ${missingFiles.join(', ')}`)
+        core.info(`The following files have been found in the repo: ${missingFiles.join(', ')}`)
       }
       core.setOutput('files_exists', 'false')
     } else {
-      core.info('🎉 All files exist')
+      core.info('🎉 No files found')
       core.setOutput('files_exists', 'true')
     }
   } catch (error) {
