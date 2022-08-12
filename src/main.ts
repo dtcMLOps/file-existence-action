@@ -41,14 +41,14 @@ async function run(): Promise<void> {
 
     if (missingFiles.length > 0) {
       if (failure) {
-        core.setFailed(`Filesssss: ${missingFiles.join(', ')}`)
+        core.setFailed(`Unexpected file types in your repo: ${missingFiles.join(', ')}`)
       } else {
-        core.info(`Filesssss: ${missingFiles.join(', ')}`)
+        core.info(`Unexpected file types in your repo: ${missingFiles.join(', ')}`)
       }
-      core.setOutput('files_exists', 'false')
+      core.setOutput('files_exists', 'true')
     } else {
       core.info('🎉 No files exist')
-      core.setOutput('files_exists', 'true')
+      core.setOutput('files_exists', 'false')
     }
   } catch (error) {
     if (!(error instanceof Error)) {

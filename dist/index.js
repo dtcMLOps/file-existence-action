@@ -78,16 +78,16 @@ function run() {
             })));
             if (missingFiles.length > 0) {
                 if (failure) {
-                    core.setFailed(`Filessss: ${missingFiles.join(', ')}`);
+                    core.setFailed(`Unexpected file types in your repo: ${missingFiles.join(', ')}`);
                 }
                 else {
-                    core.info(`Filessss: ${missingFiles.join(', ')}`);
+                    core.info(`Unexpected file types in your repo: ${missingFiles.join(', ')}`);
                 }
-                core.setOutput('files_exists', 'false');
+                core.setOutput('files_exists', 'true');
             }
             else {
                 core.info('🎉 All files exist');
-                core.setOutput('files_exists', 'true');
+                core.setOutput('files_exists', 'false');
             }
         }
         catch (error) {
