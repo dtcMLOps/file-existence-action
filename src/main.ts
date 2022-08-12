@@ -45,10 +45,10 @@ async function run(): Promise<void> {
       } else {
         core.info(`The following files have been found in the repo: ${missingFiles.join(', ')}`)
       }
-      core.setOutput('files_exists', 'false')
+      core.setOutput('files_exists', 'true')
     } else {
       core.info('🎉 No files found')
-      core.setOutput('files_exists', 'true')
+      core.setOutput('files_exists', 'false')
     }
   } catch (error) {
     if (!(error instanceof Error)) {
