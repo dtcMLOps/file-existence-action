@@ -72,16 +72,16 @@ function run() {
             // Check in parallel
             yield Promise.all(fileList.map((file) => __awaiter(this, void 0, void 0, function* () {
                 const isPresent = yield checkExistence(file);
-                if (!isPresent) {
+                if (isPresent) {
                     missingFiles.push(file);
                 }
             })));
             if (missingFiles.length > 0) {
                 if (failure) {
-                    core.setFailed(`These files don't exist: ${missingFiles.join(', ')}`);
+                    core.setFailed(`Filessss: ${missingFiles.join(', ')}`);
                 }
                 else {
-                    core.info(`These files don't exist: ${missingFiles.join(', ')}`);
+                    core.info(`Filessss: ${missingFiles.join(', ')}`);
                 }
                 core.setOutput('files_exists', 'false');
             }
