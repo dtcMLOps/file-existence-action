@@ -4,9 +4,9 @@ import glob from 'glob'
 export async function checkExistence(pattern: string): Promise<boolean> {
   const globOptions = {
     follow: !(
-      (core.getInput('follow_symlinks') || 'false').toUpperCase() === 'FALSE'
+      (core.getInput('follow_symlinks') || 'true').toUpperCase() === 'FALSE'
     ),
-    nocase: (core.getInput('ignore_case') || 'true').toUpperCase() === 'TRUE'
+    nocase: (core.getInput('ignore_case') || 'false').toUpperCase() === 'TRUE'
   }
   return new Promise((resolve, reject) => {
     glob(pattern, globOptions, (err: unknown, files: string[]) => {
@@ -23,7 +23,7 @@ async function run(): Promise<void> {
   try {
     const files: string = core.getInput('files', {required: true})
     const failure: boolean =
-      (core.getInput('allow_failure') || 'true').toUpperCase() === 'TRUE'
+      (core.getInput('allow_failure') || 'false').toUpperCase() === 'TRUE'
     const fileList: string[] = files
       .split(',')
       .map((item: string) => item.trim())
@@ -41,14 +41,14 @@ async function run(): Promise<void> {
 
     if (missingFiles.length > 0) {
       if (failure) {
-        core.setFailed(`The following files have been found in the repo: ${missingFiles.join(', ')}`)
+        core.setFailed(`Filesssss: ${missingFiles.join(', ')}`)
       } else {
-        core.info(`The following files have been found in the repo: ${missingFiles.join(', ')}`)
+        core.info(`Filesssss: ${missingFiles.join(', ')}`)
       }
-      core.setOutput('files_exists', 'true')
-    } else {
-      core.info('🎉 No files found')
       core.setOutput('files_exists', 'false')
+    } else {
+      core.info('🎉 No files exist')
+      core.setOutput('files_exists', 'true')
     }
   } catch (error) {
     if (!(error instanceof Error)) {
